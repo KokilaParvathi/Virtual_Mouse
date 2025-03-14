@@ -4,22 +4,22 @@ This project implements a **Virtual Mouse** using **OpenCV**, **MediaPipe**, and
 
 ## Features
 
-✅ Real-time hand tracking using MediaPipe
-✅ Cursor movement with index finger tracking
-✅ Click detection using thumb and index finger distance
-✅ Smooth and responsive motion control
+- ✅ Real-time hand tracking using MediaPipe
+- ✅ Cursor movement with index finger tracking
+- ✅ Click detection using thumb and index finger distance
+- ✅ Smooth and responsive motion control
 
 ## Uses
 
-🔹 Ideal for touchless computer interaction
-🔹 Useful in hygiene-critical environments where minimizing physical contact is important
-🔹 Can assist individuals with limited mobility by offering an alternative control method
+- 🔹 Ideal for touchless computer interaction
+- 🔹 Useful in hygiene-critical environments where minimizing physical contact is important
+- 🔹 Can assist individuals with limited mobility by offering an alternative control method
 
 ## Novelty
 
-🔹 Integration of dynamic distance-based click detection for improved accuracy
-🔹 Adaptive cursor movement with smooth transition control to reduce sudden jumps
-🔹 Optimized hand tracking logic for improved response in varying lighting conditions
+- 🔹 Integration of dynamic distance-based click detection for improved accuracy
+- 🔹 Adaptive cursor movement with smooth transition control to reduce sudden jumps
+- 🔹 Optimized hand tracking logic for improved response in varying lighting conditions
 
 ## Requirements
 
@@ -50,6 +50,6 @@ The code includes:
 
 ## Future Improvements
 
-🔹 Add gesture controls for scrolling and right-click
-🔹 Enhance accuracy and response time
+- 🔹 Add gesture controls for scrolling and right-click
+- 🔹 Enhance accuracy and response time
 
