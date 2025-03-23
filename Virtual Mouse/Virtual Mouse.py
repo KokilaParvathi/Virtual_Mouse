@@ -9,10 +9,13 @@ drawing_utils = mp.solutions.drawing_utils
 
 # Screen Dimensions
 screen_width, screen_height = pyautogui.size()
-index_y = 0
+index_x, index_y = 0, 0  # Initialize variables
 
 while True:
     success, frame = camera.read()
+    if not success:
+        continue  # Skip if the frame is not captured
+
     frame = cv2.flip(frame, 1)
     frame_height, frame_width, _ = frame.shape
 
@@ -28,12 +31,12 @@ while True:
             for idx, landmark in enumerate(landmarks):
                 x, y = int(landmark.x * frame_width), int(landmark.y * frame_height)
 
-                if idx == 8:
+                if idx == 8:  # Index Finger Tip
                     cv2.circle(frame, (x, y), 10, (0, 255, 255), -1)
                     index_x = screen_width / frame_width * x
                     index_y = screen_height / frame_height * y
 
-                if idx == 4:
+                if idx == 4:  # Thumb Tip
                     cv2.circle(frame, (x, y), 10, (0, 255, 255), -1)
                     thumb_x = screen_width / frame_width * x
                     thumb_y = screen_height / frame_height * y
@@ -45,4 +48,10 @@ while True:
                         pyautogui.moveTo(index_x, index_y)
 
     cv2.imshow('Virtual Mouse', frame)
-    cv2.waitKey(1)
+
+    # Exit when 'q' is pressed
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+camera.release()
+cv2.destroyAllWindows()
