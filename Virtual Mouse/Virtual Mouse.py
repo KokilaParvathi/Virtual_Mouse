@@ -2,44 +2,38 @@ import cv2
 import mediapipe as mp
 import pyautogui
 
-# Webcam Initialization
-camera = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0)
 hand_detector = mp.solutions.hands.Hands()
 drawing_utils = mp.solutions.drawing_utils
-
-# Screen Dimensions
 screen_width, screen_height = pyautogui.size()
-index_x, index_y = 0, 0  # Initialize variables
+index_x, index_y = 0, 0  # Initialize
 
 while True:
-    success, frame = camera.read()
+    success, frame = cap.read()
     if not success:
-        continue  # Skip if the frame is not captured
+        continue
 
     frame = cv2.flip(frame, 1)
     frame_height, frame_width, _ = frame.shape
-
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    result = hand_detector.process(rgb_frame)
-    hands = result.multi_hand_landmarks
+    output = hand_detector.process(rgb_frame)
+    hands = output.multi_hand_landmarks
 
     if hands:
         for hand in hands:
             drawing_utils.draw_landmarks(frame, hand)
             landmarks = hand.landmark
 
-            for idx, landmark in enumerate(landmarks):
+            for id, landmark in enumerate(landmarks):
                 x, y = int(landmark.x * frame_width), int(landmark.y * frame_height)
 
-                if idx == 8:  # Index Finger Tip
+                if id == 8:  # Index Finger Tip
                     cv2.circle(frame, (x, y), 10, (0, 255, 255), -1)
-                    index_x = screen_width / frame_width * x
-                    index_y = screen_height / frame_height * y
+                    index_x, index_y = screen_width / frame_width * x, screen_height / frame_height * y
 
-                if idx == 4:  # Thumb Tip
+                if id == 4:  # Thumb Tip
                     cv2.circle(frame, (x, y), 10, (0, 255, 255), -1)
-                    thumb_x = screen_width / frame_width * x
-                    thumb_y = screen_height / frame_height * y
+                    thumb_x, thumb_y = screen_width / frame_width * x, screen_height / frame_height * y
 
                     if abs(index_y - thumb_y) < 20:
                         pyautogui.click()
@@ -48,10 +42,10 @@ while True:
                         pyautogui.moveTo(index_x, index_y)
 
     cv2.imshow('Virtual Mouse', frame)
-
+    
     # Exit when 'q' is pressed
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
-camera.release()
+cap.release()
 cv2.destroyAllWindows()
